@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
-const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
 
 const userSchema = mongoose.Schema(
@@ -36,9 +35,14 @@ const userSchema = mongoose.Schema(
       type: String,
       required: [true, 'Please enter image routes']
     },
-    device: {
+    token: {
       type: String,
       required: [true, 'Please enter FCM For Device']
+    },
+    isAdmin: {
+      type: Boolean,
+      required: [true, 'State Is Required'],
+      default: false
     }
   },
   {

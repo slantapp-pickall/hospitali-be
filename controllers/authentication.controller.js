@@ -8,7 +8,7 @@ const { ModelUser } = require('../models');
  * @type POST
  */
 exports.register = asyncHandler(async (req, res, next) => {
-  const { uid, name, image, device } = req.body;
+  const { uid, name, image, token } = req.body;
   try {
     if (!req.body.email) {
       return next(new ErrorResponse('Email Address Is Required', 403));
@@ -19,8 +19,8 @@ exports.register = asyncHandler(async (req, res, next) => {
     if (!req.body.name) {
       return next(new ErrorResponse('Name Is Required', 403));
     }
-    if (!req.body.device) {
-      return next(new ErrorResponse('Device ID for FCM Is Required', 403));
+    if (!req.body.token) {
+      return next(new ErrorResponse('Device Token for FCM Is Required', 403));
     }
     if (!req.body.image) {
       return next(new ErrorResponse('Image return by google', 403));
@@ -40,10 +40,11 @@ exports.register = asyncHandler(async (req, res, next) => {
 
     const incoming = {
       email,
-      device,
+      token,
       name,
       image,
-      uid
+      uid,
+      isAdmin: false
     };
     const newUser = await ModelUser.create([incoming]);
     sendTokenResponse(newUser, 201, res);
@@ -67,8 +68,9 @@ exports.login = asyncHandler(async (req, res, next) => {
   }
 
   // Check for user
-  const user = await ModelUser.findOne({ email: email.toLowerCase() })
-    .select('+uid')
+  const user = await ModelUser.findOne({ email: email.toLowerCase() }).select(
+    '+uid'
+  );
 
   if (!user) {
     return next(new ErrorResponse('Invalid credentials', 401));
