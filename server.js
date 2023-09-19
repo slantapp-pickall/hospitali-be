@@ -10,6 +10,7 @@ const { errorHandler } = require('./core');
 const authRouter = require('./routes/authentication.routes');
 const userRouter = require('./routes/users.routes');
 const assetRouter = require('./routes/assets.routes');
+const notificationRouter = require('./routes/notification.routes');
 
 const app = express();
 
@@ -59,6 +60,7 @@ app.all('/', (req, res) => {
 app.use('/v1/authentication', authRouter);
 app.use('/v1/user', userRouter);
 app.use('/v1/asset', assetRouter);
+app.use('/v1/notification', notificationRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

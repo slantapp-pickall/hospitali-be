@@ -3,4 +3,5 @@ exports.ModelAssets = require('./assets.model');
 exports.ModelBlog = require('./blog.model');
 exports.ModelPayment = require('./payment.model');
 exports.ModelRate = require('./rating.model');
+exports.ModelNotification = require('./notification.model');
 // exports.ModelAdmin = require('./admin.model');
