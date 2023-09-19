@@ -43,6 +43,11 @@ const userSchema = mongoose.Schema(
       type: Boolean,
       required: [true, 'State Is Required'],
       default: false
+    },
+    blocked: {
+      type: Boolean,
+      required: [true, 'Blocked State Is Required'],
+      default: false
     }
   },
   {

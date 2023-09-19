@@ -7,7 +7,7 @@
     "dev": "nodemon ./bin/www",
     "seed": "node ./seeds",
     "test": "jest",
-    "live": "NODE_ENV=production && node ./bin/www",
+    "live": "MODE=production && node ./bin/www",
     "build": "ncc build ./bin/www -o dist"
   },
   "dependencies": {

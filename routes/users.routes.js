@@ -1,11 +1,13 @@
 const express = require('express');
 const router = express.Router();
 
-const { profile } = require('../controllers/users.controller');
-const { protect } = require('../middleware/');
+const { index, signle, block } = require('../controllers/users.controller');
+const { admin } = require('../middleware/');
 
-router.use(protect);
+router.use(admin);
 
-router.get('/', profile);
+router.get('/', index);
+router.get('/:id', signle);
+router.put('/block/:id', block);
 
 module.exports = router;
