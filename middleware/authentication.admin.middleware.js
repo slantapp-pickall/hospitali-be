@@ -1,5 +1,6 @@
 let { ModelUser } = require('../models');
 const { ErrorResponse, asyncHandler } = require('../core');
+const jwt = require('jsonwebtoken');
 
 exports.bodyParser = (req, res, next) => {
   if (!Object.keys(req.body).length > 0)
