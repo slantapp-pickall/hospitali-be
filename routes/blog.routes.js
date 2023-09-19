@@ -7,11 +7,11 @@ const {
   editB,
   create
 } = require('../controllers/blog.controller');
-const { protect } = require('../middleware');
+const { admin } = require('../middleware');
 
 router.get('/', index);
 
-router.use(protect);
+router.use(admin);
 router.post('/', create);
 router.put('/:id', editB);
 router.delete('/:id', deleteB);
