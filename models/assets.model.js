@@ -17,14 +17,29 @@ const assetsSchema = mongoose.Schema(
       required: [true, 'address Is required']
     },
 
+    country: {
+      type: String,
+      required: [true, 'Country Is required']
+    },
+
+    state: {
+      type: String,
+      required: [true, 'state Is required']
+    },
+
+    local: {
+      type: String,
+      required: [true, 'local government Is required']
+    },
+
     lang: {
       type: String,
-      default: null
+      required: [true, 'Longitute Is required']
     },
 
     long: {
       type: String,
-      default: null
+      required: [true, 'Langitute Is required']
     },
 
     mapUrl: {
@@ -47,14 +62,46 @@ const assetsSchema = mongoose.Schema(
       type: Number,
       default: 0
     },
-    tags: {
+    tag: {
       type: String,
       default: null,
       enum: {
         values: ['house', 'villa', 'apartment']
       }
     },
+    bedrooms: {
+      type: Number,
+      default: 0
+    },
+    toilet: {
+      type: Number,
+      default: 0
+    },
+    dinning: {
+      type: Number,
+      default: 0
+    },
+    bathroom: {
+      type: Number,
+      default: 0
+    },
+    pool: {
+      type: Number,
+      default: 0
+    },
     available: {
+      type: Boolean,
+      default: false
+    },
+    gym: {
+      type: Boolean,
+      default: false
+    },
+    vehicle: {
+      type: Boolean,
+      default: false
+    },
+    dryclean: {
       type: Boolean,
       default: false
     },
