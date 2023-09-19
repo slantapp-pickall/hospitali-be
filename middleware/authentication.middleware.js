@@ -31,11 +31,7 @@ const BodyGuard = asyncHandler(async (req, res, next) => {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     req.user = await ModelUser.findById(decoded.user_id);
     if (req.user) {
-      if (req.user._email) {
-        next();
-      } else {
-        return next(new ErrorResponse('Please Verify Your Email', 400));
-      }
+      next();
     } else {
       return next(
         new ErrorResponse('Not authorized to access this route', 400)

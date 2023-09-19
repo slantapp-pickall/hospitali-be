@@ -1,7 +1,5 @@
 const { ErrorResponse, asyncHandler, sendTokenResponse } = require('../core');
 const { ModelUser } = require('../models');
-const sendEmail = require('../mail');
-const { generateOTP } = require('../core/core.utils');
 
 /**
  * @description Registeration using Form Input For user
