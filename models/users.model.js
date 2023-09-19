@@ -16,14 +16,14 @@ const userSchema = mongoose.Schema(
         'Please enter a valid Email address'
       ]
     },
-    phone: {
-      type: String,
-      default: null,
-      required: [false, 'Please enter your phone Number']
-    },
     password: {
       type: String,
-      required: [true, 'Please A Valid Password is Required'],
+      required: [false, 'Please A Valid Password is Required'],
+      select: false
+    },
+    uid: {
+      type: String,
+      required: [false, 'Please A Valid Password is Required'],
       select: false
     },
     name: {
@@ -32,25 +32,14 @@ const userSchema = mongoose.Schema(
       lowercase: true,
       required: [true, 'Please enter a Valid Name']
     },
-    _phone: {
-      type: Boolean,
-      required: [true, 'Used to Know If phone Is Verified, State is Required'],
-      default: false
-    },
-    _email: {
-      type: Boolean,
-      required: [true, 'Used to Know If Email Is Verified, State is Required'],
-      default: false
-    },
-    TokenExpire: {
-      type: Number,
-      select: false
-    },
-    resetPasswordToken: {
+    image: {
       type: String,
-      select: false
+      required: [true, 'Please enter image routes']
     },
-    resetPasswordExpire: { type: Number, select: false }
+    device: {
+      type: String,
+      required: [true, 'Please enter FCM For Device']
+    }
   },
   {
     timestamps: true
@@ -71,21 +60,9 @@ userSchema.methods.matchPassword = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password);
 };
 
-// Generate and hash password token
-userSchema.methods.getResetPasswordToken = function () {
-  // Generate token
-  const resetToken = crypto.randomBytes(20).toString('hex');
-
-  // Hash token and set to resetPasswordToken field
-  this.resetPasswordToken = crypto
-    .createHash('sha256')
-    .update(resetToken)
-    .digest('hex');
-
-  // Set expire
-  this.resetPasswordExpire = Date.now() + 10 * 60 * 1000;
-
-  return resetToken;
+// Match user UID in database
+userSchema.methods.matchUID = async function (uid) {
+  return (await uid) == this.uid;
 };
 
 // Sign JWT
