@@ -126,7 +126,7 @@ assetsSchema.pre('save', async function (next) {
     next();
   }
 
-  const maps = `https://map.google.com/@${this.lang},${this.long}`;
+  const maps = `https://www.google.com/maps/@${this.lang},${this.long},19z?`;
   this.mapUrl = maps;
 });
 

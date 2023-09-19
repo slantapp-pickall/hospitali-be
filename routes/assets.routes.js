@@ -5,13 +5,15 @@ const {
   index,
   deleteB,
   editB,
-  create
-} = require('../controllers/blog.controller');
-const { protect } = require('../middleware');
+  create,
+  single
+} = require('../controllers/assets.controller');
+const { admin } = require('../middleware');
 
 router.get('/', index);
+router.get('/:id', single);
 
-router.use(protect);
+router.use(admin);
 router.post('/', create);
 router.put('/:id', editB);
 router.delete('/:id', deleteB);
