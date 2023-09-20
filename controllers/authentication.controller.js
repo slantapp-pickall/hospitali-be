@@ -16,26 +16,33 @@ exports.register = asyncHandler(async (req, res, next) => {
     if (!req.body.uid) {
       return next(new ErrorResponse('UID Is Required', 403));
     }
-    if (!req.body.name) {
-      return next(new ErrorResponse('Name Is Required', 403));
-    }
     if (!req.body.token) {
       return next(new ErrorResponse('Device Token for FCM Is Required', 403));
-    }
-    if (!req.body.image) {
-      return next(new ErrorResponse('Image return by google', 403));
     }
     const email = req.body.email.toLowerCase()
       ? req.body.email.toLowerCase()
       : '';
     const checkAccount = await ModelUser.findOne({
       email: email
-    });
+    }).select('+uid');
 
     if (checkAccount) {
-      return next(
-        new ErrorResponse(`Email Address already exist, Please Login`, 400)
-      );
+      const isMatch = await checkAccount.matchUID(uid);
+
+      if (!isMatch) {
+        return next(new ErrorResponse('Invalid credentials', 401));
+      }
+
+      checkAccount.token = token;
+      await checkAccount.save();
+      return sendTokenResponse(checkAccount, 201, res);
+    }
+
+    if (!req.body.image) {
+      return next(new ErrorResponse('Image return by google', 403));
+    }
+    if (!req.body.name) {
+      return next(new ErrorResponse('Name Is Required', 403));
     }
 
     const incoming = {
