@@ -13,6 +13,7 @@ const assetRouter = require('./routes/assets.routes');
 const notificationRouter = require('./routes/notification.routes');
 const blogRouter = require('./routes/blog.routes');
 const bookingRouter = require('./routes/bookings.routes');
+const webhookRouter = require('./routes/webhook.routes');
 
 const app = express();
 
@@ -65,6 +66,7 @@ app.use('/v1/asset', assetRouter);
 app.use('/v1/notification', notificationRouter);
 app.use('/v1/blog', blogRouter);
 app.use('/v1/booking', bookingRouter);
+app.use('/v1/webhook', webhookRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
