@@ -110,7 +110,7 @@ exports.myActiveBookings = asyncHandler(async (req, res, next) => {
   const data = await ModelBooking.find({
     _user: req.user._id,
     status: 'success',
-    isCompleted: true
+    isCompleted: false
   }).populate('_asset', {
     name: 1,
     image: 1
