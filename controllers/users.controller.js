@@ -48,7 +48,7 @@ exports.block = asyncHandler(async (req, res, next) => {
     _id: req.params.id
   });
 
-  data.block = !data.block;
+  data.blocked = !data.blocked;
   await data.save();
 
   res.status(200).json({
